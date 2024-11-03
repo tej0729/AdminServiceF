@@ -1,0 +1,61 @@
+/* src/styles.scss */
+
+/* You can add global styles to this file, and also import other style files */
+@import 'bootstrap/scss/bootstrap';
+
+:root {
+  --primary-color: #4a90e2;
+  --primary-color-dark: #2a70c2;
+  --secondary-color: #50e3c2;
+  --background-color: #f0f4f8;
+  --text-color: #333333;
+  --light-text-color: #ffffff;
+
+  /* New gradient colors */
+  --primary-gradient: linear-gradient(135deg, #4a90e2, #2a70c2);
+  --secondary-gradient: linear-gradient(135deg, #50e3c2, #4a90e2);
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  color: var(--text-color);
+}
+
+.bg-gradient {
+  background: var(--primary-gradient);
+}
+
+.card {
+  border: none;
+  transition: transform 0.3s ease-in-out;
+
+  &:hover {
+    transform: translateY(-5px);
+  }
+}
+
+.btn-primary {
+  background: var(--primary-gradient);
+  border-color: var(--primary-color);
+
+  &:hover {
+    background: var(--primary-color-dark);
+    border-color: var(--primary-color-dark);
+  }
+}
+
+.btn-outline-primary {
+  color: var(--primary-color);
+  border-color: var(--primary-color);
+
+  &:hover {
+    background: var(--primary-gradient);
+    color: var(--light-text-color);
+  }
+}
+
+.btn-outline-danger {
+  &:hover {
+    color: var(--light-text-color);
+  }
+}

@@ -1,0 +1,117 @@
+<div class="container-fluid bg-gradient min-vh-100">
+  <div class="row justify-content-center">
+    <div class="col-md-4 mt-5">
+      <div class="card shadow-lg">
+        <div class="card-body">
+          <form #registerForm="ngForm" (ngSubmit)="register(registerForm)">
+            <h4 class="card-title text-center mb-4">Admin Database</h4>
+            
+            <div class="mb-3">
+              <label for="username" class="form-label">Username</label>
+              <input id="username" required #username="ngModel" ngModel name="username" type="text"
+                class="form-control" placeholder="Enter username">
+              <div *ngIf="username.invalid && username.touched" class="text-danger small mt-1">
+                Username is required
+              </div>
+            </div>
+            
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input id="email" required #email="ngModel" ngModel name="email" type="email"
+                class="form-control" placeholder="Enter email">
+              <div *ngIf="email.invalid && email.touched" class="text-danger small mt-1">
+                Valid email is required
+              </div>
+            </div>
+            
+            <div class="mb-3">
+              <label for="password" class="form-label">Password</label>
+              <input id="password" required #password="ngModel" ngModel name="password" type="password"
+                class="form-control" placeholder="Enter password">
+              <div *ngIf="password.invalid && password.touched" class="text-danger small mt-1">
+                Password is required
+              </div>
+            </div>
+
+            <div class="mb-3 form-check">
+              <input type="checkbox" class="form-check-input" id="isActive" name="isActive" ngModel>
+              <label class="form-check-label" for="isActive">Is Active</label>
+            </div>
+  
+            <div class="d-grid">
+              <button class="btn btn-primary" type="submit" [disabled]="!registerForm.form.valid">Submit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-5">
+    <div class="col-12">
+      <h2 class="text-center text-white mb-4">Admin List</h2>
+      <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="col" *ngFor="let admin of adminDetails">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title">{{admin.username}}</h5>
+              <p class="card-text">Email: {{admin.email}}</p>
+              <p class="card-text">
+                Status: 
+                <span [ngClass]="{'badge bg-success': admin.isActive, 'badge bg-danger': !admin.isActive}">
+                  {{admin.isActive ? 'Active' : 'Inactive'}}
+                </span>
+              </p>
+            </div>
+            <div class="card-footer bg-transparent border-0 d-flex justify-content-between">
+              <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="edit(admin)">Edit</button>
+              <button type="button" class="btn btn-outline-danger btn-sm" (click)="deleteAdmin(admin)">Delete</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Update Admin</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form #updateForm="ngForm" (ngSubmit)="updateAdmin()">
+            <div class="mb-3">
+              <label for="username" class="form-label">Username</label>
+              <input id="username" required #username="ngModel" [(ngModel)]="adminToUpdate.username" name="username" type="text"
+                class="form-control" placeholder="Enter username">
+              <div *ngIf="username.invalid && username.touched" class="text-danger small mt-1">
+                Username is required
+              </div>
+            </div>
+            
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input id="email" required #email="ngModel" [(ngModel)]="adminToUpdate.email" name="email" type="email"
+                class="form-control" placeholder="Enter email">
+              <div *ngIf="email.invalid && email.touched" class="text-danger small mt-1">
+                Valid email is required
+              </div>
+            </div>
+            
+            <div class="mb-3 form-check">
+              <input type="checkbox" class="form-check-input" id="isActive" [(ngModel)]="adminToUpdate.isActive" name="isActive">
+              <label class="form-check-label" for="isActive">Is Active</label>
+            </div>
+       
+            <div class="d-grid">
+              <button class="btn btn-primary" type="submit" [disabled]="!updateForm.form.valid">Update</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
